@@ -5,6 +5,6 @@ const path = process.env.NODE_ENV === 'production' ? '/natata-admin/' : '/'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // base: path,
+  base: path,
   plugins: [react()],
 })
