@@ -1,11 +1,11 @@
 name: Release
 on:
-  pull_request:
+  push:
     branches:
       - master
     types: 
       [closed]
-  push:
+  pull_request:
     branches:
       - master
     types: 
@@ -13,7 +13,7 @@ on:
 jobs:
   build-and-deploy:
     name: Release
-    if: ${{ github.event.pull_request.merged }}
+    # if: ${{ github.event.pull_request.merged }} //需要进行pr审核时开启
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
