@@ -4,6 +4,10 @@ import {
   HashRouter,
 } from "react-router-dom";
 import App from './App'
+// === Config === //
+import { axiosInterceptorsUsed } from '@/config/axios'
+
+axiosInterceptorsUsed()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
