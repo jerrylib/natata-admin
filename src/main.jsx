@@ -4,6 +4,10 @@ import {
   HashRouter,
 } from "react-router-dom";
 import App from './App'
+
+// === Styles === //
+import './index.css'
+
 // === Config === //
 import { axiosInterceptorsUsed } from '@/config/axios'
 
