@@ -1,53 +1,92 @@
 import { useState } from 'react'
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { Routes, Route, Outlet, Link, useNavigate, useLocation } from "react-router-dom";
+
+// === Components === //
+import { Layout, Menu, Button, theme } from 'antd';
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  AppstoreOutlined,
+} from '@ant-design/icons';
 
 // === Routers === //
 import Home from './pages/Home'
 import Team from './pages/Team'
 import NoMatch from './pages/404'
 
+const { Header, Sider, Content } = Layout;
+
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<MyLayout />}>
           <Route index element={<Home />} />
-          <Route path="team" element={<Team />} />
+          <Route path="battle" element={<Team />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
     </div>
   )
 }
-function Layout() {
+const MyLayout = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+  const navigation = useNavigate()
+  const location = useLocation()
   return (
-    <div>
-      {/* A "layout route" is a good place to put markup you want to
-          share across all the pages on your site, like navigation. */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/team">team</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/nothing-here">Nothing Here</Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-
-      {/* An <Outlet> renders whatever child route is currently active,
-          so you can think about this <Outlet> as a placeholder for
-          the child routes we defined above. */}
-      <Outlet />
-    </div>
+    <Layout>
+      <Sider className="h-[100vh]" trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={['/']}
+          selectedKeys={[location.pathname]}
+          onSelect={({ key }) => navigation(key)}
+          items={[
+            {
+              key: '/',
+              icon: <UserOutlined />,
+              label: 'Home',
+            },
+            {
+              key: '/battle',
+              icon: <AppstoreOutlined />,
+              label: 'Battle',
+            },
+          ]}
+        />
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+          <Outlet />
+        </Content>
+      </Layout>
+    </Layout>
   );
 }
 
