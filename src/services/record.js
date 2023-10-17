@@ -2,8 +2,8 @@
 // === Utils === //
 import axios from 'axios'
 
-export const getRecordList = () => {
-    return axios.get('https://natata-api.vercel.app/api/record')
+export const getRecordList = (params) => {
+    return axios.get('https://natata-api.vercel.app/api/record', { params })
 }
 
 export const recordPost = (body) => {

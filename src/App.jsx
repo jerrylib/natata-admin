@@ -9,12 +9,14 @@ import {
   AreaChartOutlined,
   UserOutlined,
   AppstoreOutlined,
+  TeamOutlined
 } from '@ant-design/icons';
 
 // === Routers === //
 import Home from './pages/Home'
 import Battle from './pages/Battle'
 import Report from './pages/Report'
+import Detail from './pages/Detail'
 import NoMatch from './pages/404'
 
 const { Header, Sider, Content } = Layout;
@@ -27,6 +29,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="battle" element={<Battle />} />
           <Route path="report" element={<Report />} />
+          <Route path="detail" element={<Detail />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
@@ -65,6 +68,11 @@ const MyLayout = () => {
               key: '/report',
               icon: <AreaChartOutlined />,
               label: 'Report',
+            },
+            {
+              key: '/detail',
+              icon: <TeamOutlined />,
+              label: 'Detail',
             },
           ]}
         />
