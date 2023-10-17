@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 // === Components === //
-import { Checkbox, Row, Col, InputNumber, Button, Divider } from 'antd';
+import { Checkbox, Row, Col, InputNumber, Button, Divider, message } from 'antd';
 
 // === Services === //
 import { recordPost } from '@/services/record'
@@ -14,7 +14,7 @@ const defaultValue = ['李老师', '林兴玉', '丰泽林总', '李彬']
 
 const options = ['李老师', '林兴玉', '丰泽林总', '李彬', '黄嘎嘎', '丰疆黄总', '封封']
 
-const Team = () => {
+const Battle = () => {
     const [selectValue, setSelectValue] = useState([])
 
     const onChange = (event) => {
@@ -40,7 +40,13 @@ const Team = () => {
         const result = Object.keys(selectValue).map(i => {
             return { name: i, score: selectValue[i] }
         })
-        recordPost(result)
+        const close = message.loading('数据提交中...')
+        recordPost(result).then(() => {
+            message.success('数据提交成功！')
+            reset()
+        }).catch(error => {
+            message.error(error.message)
+        }).finally(close)
     }
 
     const reset = () => {
@@ -54,7 +60,6 @@ const Team = () => {
         reset()
     }, [])
 
-    console.log('selectValue=', selectValue)
     return <div>
         <Checkbox.Group style={{ width: '100%' }} value={Object.keys(selectValue)} >
             <Row>
@@ -75,4 +80,4 @@ const Team = () => {
         </Row>
     </div>
 }
-export default Team
+export default Battle

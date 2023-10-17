@@ -6,14 +6,15 @@ import { Layout, Menu, Button, theme } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  AreaChartOutlined,
   UserOutlined,
   AppstoreOutlined,
 } from '@ant-design/icons';
 
 // === Routers === //
 import Home from './pages/Home'
-import Team from './pages/Team'
+import Battle from './pages/Battle'
+import Report from './pages/Report'
 import NoMatch from './pages/404'
 
 const { Header, Sider, Content } = Layout;
@@ -24,7 +25,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MyLayout />}>
           <Route index element={<Home />} />
-          <Route path="battle" element={<Team />} />
+          <Route path="battle" element={<Battle />} />
+          <Route path="report" element={<Report />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
@@ -40,7 +42,7 @@ const MyLayout = () => {
   const location = useLocation()
   return (
     <Layout>
-      <Sider className="h-[100vh]" trigger={null} collapsible collapsed={collapsed}>
+      <Sider className="min-h-[100vh]" trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -58,6 +60,11 @@ const MyLayout = () => {
               key: '/battle',
               icon: <AppstoreOutlined />,
               label: 'Battle',
+            },
+            {
+              key: '/report',
+              icon: <AreaChartOutlined />,
+              label: 'Report',
             },
           ]}
         />
