@@ -6,7 +6,7 @@ const base = process.env.NODE_ENV === 'production' ? '/natata-admin/' : '/'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base,
+  // base,
   plugins: [react()],
   resolve: {
     alias: {
